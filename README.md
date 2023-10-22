@@ -1,1 +1,1 @@
-## Project 6: Tumblr Detail Starter
+## Project 6: Tumblr Detail

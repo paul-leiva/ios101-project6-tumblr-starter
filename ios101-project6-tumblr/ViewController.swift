@@ -79,19 +79,31 @@ class ViewController: UIViewController, UITableViewDataSource {
         session.resume()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    /// Unselect the row when returning from the DetailViewController
+    override func viewWillAppear(_ animated: Bool) {
+        /// It is customary to call the overridden method on `super` any time you override a method
+        super.viewWillAppear(animated)
         
-        // get the `indexPath` for the selected destination
+        /// Get the indexPath for the selected row
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            /// Deselect the currently selected row
+            tableView.deselectRow(at: selectedIndexPath, animated: animated)
+        }
+    }
+    
+    /// Use this `prepare()` function to pass data from the row of the TableView to the DetailViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        /// get the `indexPath` for the selected destination
         guard let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
         
-        // Get the selected post from the `posts` array
+        /// Get the selected post from the `posts` array
         let selectedPost = posts[selectedIndexPath.row]
         
+        /// Get the new ViewController using `segue.destination`
         guard let detailViewController = segue.destination as? DetailViewController else { return }
         
-        // Set the post variable in the DetailViewController to the selected movie
+        /// Pass the selected object to the new view controller.
+        /// Set the post variable in the DetailViewController to the selected movie
         detailViewController.post = selectedPost
     }
 }

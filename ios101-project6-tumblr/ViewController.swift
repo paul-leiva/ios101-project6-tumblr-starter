@@ -78,4 +78,20 @@ class ViewController: UIViewController, UITableViewDataSource {
         }
         session.resume()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        // get the `indexPath` for the selected destination
+        guard let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
+        
+        // Get the selected post from the `posts` array
+        let selectedPost = posts[selectedIndexPath.row]
+        
+        guard let detailViewController = segue.destination as? DetailViewController else { return }
+        
+        // Set the post variable in the DetailViewController to the selected movie
+        detailViewController.post = selectedPost
+    }
 }
